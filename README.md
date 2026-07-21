@@ -13,6 +13,9 @@ The function *pd_check* in this script can check GHOST(-) states and other fatal
 The function *pd_compare" can check the parameter consistency of files among input file *.in* and output files *.out*, *.psp8*, *.upf*. This function can also compare input parameters between two PseudoDojo pseudopotential families. The comparison results will be exported in dojo-comparison-report-{accuracy}.txt
 
 ### temporary_djson_for_testing.py
+For eos-workflow to verificate PseudoDojo ONCVPSP pseudopotentials, those pseudopotentials are stored in ONCVPSP family "ONCVPSP-XC-R-PDvx.x:accuracy". When you want to verify specific element in that ONCVPSP family. The f"{accuracy}.djson" file will help atomate2+abipy to find where stores the pseudopotential of that element and also the recommend cutoff energy hints. In addition, f"{accuracy}.djson" file also provide basic informations for each pseudopotentials. Thus, f"{accuracy}.djson" is the kernel file stored in the main branch of "ONCVPSP-XC-R-PDvx.x". One "ONCVPSP-XC-R-PDvx.x" folder may contains different accuracy elements.
 
+If you generate some new pseudopotentials, there are two way to verificate them. \
+1. Still use the old 
 
 
