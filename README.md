@@ -29,10 +29,9 @@ Since recommend cutoff energy hints are important information for a pseudopotent
 
 There are three kinds of convergency test, which are labeled by the key *factory* in the function: etot, delta1, and phonon. The convergency results of etot and delta1, combined with the ecut estimated by ONCVPSP will obtain the recommned cutoff energy hints (more details refer to https://doi.org/10.1016/j.cpc.2018.01.012). 
 
-It is noted that phonon related calculations are still not combined to the *main* branch of atomate2/abinit. When you care about the phonon behavior, a developer version of atomate2 and abipy are needed, which is available here:
-#### atomate2-phonon
-#### abipy-phonon
-After you pip install eos_workflow, git clone two developer packages above and pip install atomate2-phonon and then abipy-phonon.
+It is noted that phonon related calculations are still not combined to the *main* branch of atomate2/abinit. When you care about the phonon behavior, a developer version of atomate2 and abipy are needed, which is available in *developer-packages-for-phonon* folder.
+
+After you pip install eos_workflow, cd *developer-packages-for-phonon* folder, and fisrt pip install atomate2-phonon, then abipy-phonon.
 
 In addition, the key *frontend* in *convergency_tests* function is only useful for remote cluster, which will run specific jobs on local rather than to the queue for calculation node. This trick can save time when this job is just a one-step operation, so there is no need to submit suck kind of jobs like time-consuming DFT calculations to queue and waiting for the source of calculation nodes. 
 
