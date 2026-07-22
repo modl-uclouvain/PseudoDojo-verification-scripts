@@ -15,7 +15,7 @@ The function *pd_compare" can check the parameter consistency of files among inp
 ### temporary_djson_for_testing.py
 For eos-workflow to verificate PseudoDojo ONCVPSP pseudopotentials, those pseudopotentials are stored in ONCVPSP family "ONCVPSP-XC-R-PDvx.x:accuracy". When you want to verify specific element in that ONCVPSP family. The f"{accuracy}.djson" file will help atomate2+abipy to find where stores the pseudopotential of that element and also the recommend cutoff energy hints. In addition, f"{accuracy}.djson" file also provide basic informations for each pseudopotentials. Thus, f"{accuracy}.djson" is the kernel file stored in the main branch of "ONCVPSP-XC-R-PDvx.x". One "ONCVPSP-XC-R-PDvx.x" folder may contains different accuracy elements.
 
-If you generate some new pseudopotentials, there are two way to verificate them. \
+If you generate some new pseudopotentials, there are two way to verificate them. 
 1. Still use the old ONCVPSP family, but modify the *basename* in f"{accuracy}.djson" to the name of the new pseudopotential and also put your new pseudopotential to the same folder of the old one.
 2. Create a new ONCVPSP family, for example ONCVPSP-PBE-SR-PDv1.0 by using pseudopotential_generation.py. Then, do the same thing as option 1. In this case, you have to modify a global variable "_ONCVPSP_REPOS" in PATH_TO_ABIPY/abipy/flowtk/psrepos.py, and pip show abipy can find PATH_TO_ABIPY.
 
@@ -27,6 +27,15 @@ Thus, the function *temporary_djson_generation* in this script can generate a te
 ### convergency_tests_submission.py
 Since recommend cutoff energy hints are important information for a pseudopotentials. The function *convergency_tests* in this script will submit jobs to test the convergency behavior of pseudopotentials and also for the purpose to obtain hints.
 
-There are three kind of convergency tests, which are labeled by the key *factory* in the function: etot, delta1, and phonon. The convergency results of etot and delta1, combined with the ecut estimated by ONCVPSP will obtain the recommned cutoff energy hints (more details refer to https://doi.org/10.1016/j.cpc.2018.01.012). 
+There are three kinds of convergency test, which are labeled by the key *factory* in the function: etot, delta1, and phonon. The convergency results of etot and delta1, combined with the ecut estimated by ONCVPSP will obtain the recommned cutoff energy hints (more details refer to https://doi.org/10.1016/j.cpc.2018.01.012). 
+
+It is noted that phonon related calculations are still not combined to the *main* branch of atomate2/abinit. When you care about the phonon behavior, a developer version of atomate2 and abipy are needed, which is available here:
+#### atomate2-phonon
+#### abipy-phonon
+After you pip install eos_workflow, git clone two developer packages above and pip install atomate2-phonon and then abipy-phonon.
+
+### eos_tests_submission.py
+
+
 
 
