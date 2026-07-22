@@ -16,6 +16,17 @@ The function *pd_compare" can check the parameter consistency of files among inp
 For eos-workflow to verificate PseudoDojo ONCVPSP pseudopotentials, those pseudopotentials are stored in ONCVPSP family "ONCVPSP-XC-R-PDvx.x:accuracy". When you want to verify specific element in that ONCVPSP family. The f"{accuracy}.djson" file will help atomate2+abipy to find where stores the pseudopotential of that element and also the recommend cutoff energy hints. In addition, f"{accuracy}.djson" file also provide basic informations for each pseudopotentials. Thus, f"{accuracy}.djson" is the kernel file stored in the main branch of "ONCVPSP-XC-R-PDvx.x". One "ONCVPSP-XC-R-PDvx.x" folder may contains different accuracy elements.
 
 If you generate some new pseudopotentials, there are two way to verificate them. \
-1. Still use the old 
+1. Still use the old ONCVPSP family, but modify the *basename* in f"{accuracy}.djson" to the name of the new pseudopotential and also put your new pseudopotential to the same folder of the old one.
+2. Create a new ONCVPSP family, for example ONCVPSP-PBE-SR-PDv1.0 by using pseudopotential_generation.py. Then, do the same thing as option 1. In this case, you have to modify a global variable "_ONCVPSP_REPOS" in PATH_TO_ABIPY/abipy/flowtk/psrepos.py, and pip show abipy can find PATH_TO_ABIPY.
+
+When you want to test pseudopotentials on remote cluster, options above should be also applied at remote cluster.
+
+Thus, the function *temporary_djson_generation* in this script can generate a temporary f"{accuracy}.djson" file based on f"{accuracy}.txt", which can be used for convergency testing.
+
+## 2-submit
+### convergency_tests_submission.py
+Since recommend cutoff energy hints are important information for a pseudopotentials. The function *convergency_tests* in this script will submit jobs to test the convergency behavior of pseudopotentials and also for the purpose to obtain hints.
+
+There are three kind of convergency tests, which are labeled by the key *factory* in the function: etot, delta1, and phonon. The convergency results of etot and delta1, combined with the ecut estimated by ONCVPSP will obtain the recommned cutoff energy hints (more details refer to https://doi.org/10.1016/j.cpc.2018.01.012). 
 
 
