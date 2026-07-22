@@ -34,12 +34,27 @@ It is noted that phonon related calculations are still not combined to the *main
 #### abipy-phonon
 After you pip install eos_workflow, git clone two developer packages above and pip install atomate2-phonon and then abipy-phonon.
 
-In addition, the key *frontend* in *convergency_tests* function is only useful for remote cluster, which will run specific jobs on local rather than to the queue for calculation node. This trick can save time when this job is just a one-step operation, so there is no need to submit suck kind of jobs like time-consuming DFT calculations to queue. 
+In addition, the key *frontend* in *convergency_tests* function is only useful for remote cluster, which will run specific jobs on local rather than to the queue for calculation node. This trick can save time when this job is just a one-step operation, so there is no need to submit suck kind of jobs like time-consuming DFT calculations to queue and waiting for the source of calculation nodes. 
 
 ### eos_tests_submission.py
 The function *eos_tests* in this script can submit EOS calculations for given pseudopotentials. There are ten testing configurations, four unaries: BCC, FCC, SC, Diamond; six oxides: X2O, XO, X2O3, XO2, X2O5, XO3. More details can refer to https://doi.org/10.1038/s42254-023-00655-3. 
 
 When the key *ecut* is None in the *eos_tests* function, the hint value with *high* label in f"{accuracy}.djson" file will be adopted as the recommended cutoff energy. Thus, if you do not know what cutoff energy should be used, you need to first use convergency_tests_submission.py and obtain_hints.py to obtain recommend cutoff energy.
+
+Still, the key *frontend* is only helpful for remote cluster. More details for the settings can refer to.
+
+## 3-analyze
+### results_download.py
+The function *download_remotely* can download delta1/etot/phonon convergency reports and also EOS calculation results from remote cluster by search flows for *start* to *end* DB id of flows.
+
+In addition, it is highly recommend to store delta1/etot/phonon convergency reports to corresponding f"delta1/etot/phonon-{accuracy}" folder, and to store EOS results to f"eos-{accuracy}" folder, and all of these folders are created at the main folder of ONCVPSP-XC-R-PDvx.x. These settings will benifit the following steps.
+
+### obtain_hints.py
+The function *dojo_hints* will read delta1/etot convergency reports to obtain cutoff hints values and write them to f"{accuracy}.djson" file. If the path to delta1/etot convergency reports are not provided, the function will search f"delta1/etot-{accuracy}" folder in *pseudo_path*.
+
+## 4-export
+The function *write_djrepo* will summarize delta1/etot/phonon convergency reports and also EOS calculation results to f"{basename}.djrepo" file at {element} folder, where the same path to store pseudopotential files, i.e. f"{element}/{basename}.psp8" provided in f"{accuracy}.txt" file.
+
 
 
 
