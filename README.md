@@ -10,7 +10,7 @@ The choice of XC and R can be different to the old PsedudoDojo. For example, you
 ### pseudopotential_check.py
 The function *pd_check* in this script can check GHOST(-) states and other fatal ERROR happens in ONCVPSP pseudopotential generation. The report will store in dojo-error-report-{accuracy}.txt.
 
-The function *pd_compare" can check the parameter consistency of files among input file *.in* and output files *.out*, *.psp8*, *.upf*. This function can also compare input parameters between two PseudoDojo pseudopotential families. The comparison results will be exported in dojo-comparison-report-{accuracy}.txt
+The function *pd_compare* can check the parameter consistency of files among input file *.in* and output files *.out*, *.psp8*, *.upf*. This function can also compare input parameters between two PseudoDojo pseudopotential families. The comparison results will be exported in dojo-comparison-report-{accuracy}.txt
 
 ### temporary_djson_for_testing.py
 For eos-workflow to verificate PseudoDojo ONCVPSP pseudopotentials, those pseudopotentials are stored in ONCVPSP family "ONCVPSP-XC-R-PDvx.x:accuracy". When you want to verify specific element in that ONCVPSP family. The f"{accuracy}.djson" file will help atomate2+abipy to find where stores the pseudopotential of that element and also the recommend cutoff energy hints. In addition, f"{accuracy}.djson" file also provide basic informations for each pseudopotentials. Thus, f"{accuracy}.djson" is the kernel file stored in the main branch of "ONCVPSP-XC-R-PDvx.x". One "ONCVPSP-XC-R-PDvx.x" folder may contains different accuracy elements.
@@ -34,7 +34,19 @@ It is noted that phonon related calculations are still not combined to the *main
 #### abipy-phonon
 After you pip install eos_workflow, git clone two developer packages above and pip install atomate2-phonon and then abipy-phonon.
 
+In addition, the key *frontend* in *convergency_tests* function is only useful for remote cluster, which will run specific jobs on local rather than to the queue for calculation node. This trick can save time when this job is just a one-step operation, so there is no need to submit suck kind of jobs like time-consuming DFT calculations to queue. 
+
 ### eos_tests_submission.py
+The function *eos_tests* in this script can submit EOS calculations for given pseudopotentials. There are ten testing configurations, four unaries: BCC, FCC, SC, Diamond; six oxides: X2O, XO, X2O3, XO2, X2O5, XO3. More details can refer to https://doi.org/10.1038/s42254-023-00655-3. 
+
+When the key *ecut* is None in the *eos_tests* function, the hint value with *high* label in f"{accuracy}.djson" file will be adopted as the recommended cutoff energy. Thus, if you do not know what cutoff energy should be used, you need to first use convergency_tests_submission.py and obtain_hints.py to obtain recommend cutoff energy.
+
+
+
+
+
+
+
 
 
 
